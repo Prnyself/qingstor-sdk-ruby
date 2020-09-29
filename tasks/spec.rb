@@ -26,6 +26,20 @@ end
 
 task :'spec-runtime-ruby-2.3' do
   run_spec_in_docker '# Dockerfile for Runtime Test
+FROM ruby:2.4
+
+ADD . /qingstor-sdk-ruby
+WORKDIR /qingstor-sdk-ruby
+
+RUN gem install bundler
+RUN bundle install
+
+CMD ["rake", "spec", "build", "install"]
+'
+end
+
+task :'spec-runtime-ruby-2.3' do
+  run_spec_in_docker '# Dockerfile for Runtime Test
 FROM ruby:2.3
 
 ADD . /qingstor-sdk-ruby
